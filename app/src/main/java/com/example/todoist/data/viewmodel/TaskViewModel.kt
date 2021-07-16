@@ -14,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
  class TaskViewModel(applcation: Application):AndroidViewModel(applcation) {
-    var readAllTask:LiveData<List<Task>>
+    var readAllTask:LiveData<MutableList<Task>>
     val getCategories:Array<String>
     val getAllCategory: LiveData<List<CategTaskCount>>
     var selectedCateg: MutableLiveData<String> = MutableLiveData<String>()
@@ -39,11 +39,11 @@ import kotlinx.coroutines.launch
             repository.addTask(task)
         }
     }
-    fun readAllTasks(categ:String):LiveData<List<Task>> {
+    fun readAllTasks(categ:String):LiveData<MutableList<Task>> {
         return repository.readAllTasks(categ)
     }
 
-     fun readAllTasksNonLive(categ:String):List<Task> {
+     fun readAllTasksNonLive(categ:String):MutableList<Task> {
          return repository.readAllTasksNonLive(categ)
      }
 
@@ -63,6 +63,13 @@ import kotlinx.coroutines.launch
      fun updateTask(updatedTask: Task) {
          viewModelScope.launch(Dispatchers.IO) {
              repository.updateTask(updatedTask)
+         }
+
+     }
+
+     fun deleteTask(task: Task) {
+         viewModelScope.launch(Dispatchers.IO) {
+             repository.deleteTask(task)
          }
 
      }

@@ -18,7 +18,7 @@ class taskRepository(private val taskDao: taskDao) {
     suspend fun UpdateTaskCompletion(id: Long,isComplete:Boolean){
         taskDao.UpdateTaskCompletion(id,isComplete)
     }
-     fun readAllTasks(categ:String):LiveData<List<Task>>{
+     fun readAllTasks(categ:String):LiveData<MutableList<Task>>{
 
         return taskDao.readCategTasks(categ)
     }
@@ -33,13 +33,17 @@ class taskRepository(private val taskDao: taskDao) {
         taskDao.addCategory(category)
     }
 
-    fun readAllTasksNonLive(categ: String): List<Task> {
+    fun readAllTasksNonLive(categ: String): MutableList<Task> {
         return taskDao.readCategTasksNotLive(categ)
     }
 
     suspend fun updateTask(updatedTask: Task) {
         taskDao.updateTask(updatedTask)
 
+    }
+
+    suspend fun deleteTask(task: Task) {
+        taskDao.deleteTask(task)
     }
 //    fun getCategories():Array<String>{
 //        return taskDao.getCategories()

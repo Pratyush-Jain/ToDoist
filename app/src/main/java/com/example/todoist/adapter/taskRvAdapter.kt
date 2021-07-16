@@ -22,7 +22,8 @@ import com.example.todoist.fragments.UpdateFragment
 
 
 class taskRvAdapter: RecyclerView.Adapter<taskRvAdapter.ViewHolder>() {
-    var Alltasks = emptyList<Task>()
+    //var Alltasks = emptyList<Task>()
+    var Alltasks:MutableList<Task> = mutableListOf()
     lateinit var ccontext:Context
     lateinit var mtaskVM:TaskViewModel
 
@@ -121,15 +122,23 @@ class taskRvAdapter: RecyclerView.Adapter<taskRvAdapter.ViewHolder>() {
         val bundle = Bundle()
         bundle.putString("title", holder.taskTitle.text.toString())
         bundle.putString("priority", Alltasks[position].priority.toString())
-        bundle.putString("categ", Alltasks[position].category.toString())
+        bundle.putString("categ", Alltasks[position].category)
         bundle.putString("id", Alltasks[position].id.toString())
         f.arguments = bundle
 
     }
 
-    fun setdata(task: List<Task>){
+    fun setdata(task: MutableList<Task>){
 
         this.Alltasks =task
         notifyDataSetChanged()
+    }
+
+    fun deleteItem(position: Int): Task {
+        val r = Alltasks[position]
+        Alltasks.removeAt(position)
+        notifyItemRemoved(position)
+        return r
+
     }
 }

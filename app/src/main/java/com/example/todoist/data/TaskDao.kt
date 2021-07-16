@@ -23,14 +23,14 @@ interface taskDao {
             "WHEN 'Medium' THEN 2 " +
             "WHEN 'Low' THEN 3 " +
             "END ) WHERE category=:Categ ORDER BY isCompleted")
-    fun readCategTasks(Categ: String):LiveData<List<Task>>
+    fun readCategTasks(Categ: String):LiveData<MutableList<Task>>
 
     @Query("SELECT * from (SELECT * FROM task_table ORDER BY CASE priority " +
             "WHEN 'High' THEN 1 " +
             "WHEN 'Medium' THEN 2 " +
             "WHEN 'Low' THEN 3 " +
             "END ) WHERE category=:Categ ORDER BY isCompleted")
-    fun readCategTasksNotLive(Categ: String):List<Task>
+    fun readCategTasksNotLive(Categ: String):MutableList<Task>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addCategory(category: Category)
@@ -48,5 +48,8 @@ interface taskDao {
 
     @Update
     suspend fun updateTask(task: Task)
+
+    @Delete
+    suspend fun deleteTask(task: Task)
 
 }
