@@ -27,6 +27,7 @@ import com.google.android.material.navigation.NavigationView
 class MainActivity : AppCompatActivity() {
     lateinit var toggle : ActionBarDrawerToggle
     lateinit var mTaskViewModel: TaskViewModel
+    var Selectcateg = "Personal"
 
 
 
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         mTaskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
-        mTaskViewModel.addCategory(Category("Personal"))
+        mTaskViewModel.addCategory(Category(Selectcateg))
         mTaskViewModel.setCateg("Personal")
         var categ = emptyList<CategTaskCount>()
         mTaskViewModel.getAllCategory.observe(this,Observer {
@@ -117,6 +118,7 @@ class MainActivity : AppCompatActivity() {
         })
         mTaskViewModel.selectedCateg.observe(this, Observer {
             rvadapter.setdata(mTaskViewModel.readAllTasksNonLive(it))
+            Selectcateg = it
             //mTaskViewModel.readAllTask.value?.let { it1 -> rvadapter.setdata(it1) }
         })
 
@@ -132,8 +134,9 @@ class MainActivity : AppCompatActivity() {
         val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton)
         fab.setOnClickListener{
             val bundle = Bundle()
-            bundle.putString("SelectedCateg", mTaskViewModel.selectedCateg.value)
+            bundle.putString("SelectedCateg", Selectcateg)
             val f:Fragment = AddFragment()
+            f.arguments = bundle
             supportFragmentManager.beginTransaction()
                 .add(R.id.fr,f)
                 .addToBackStack("fragment")

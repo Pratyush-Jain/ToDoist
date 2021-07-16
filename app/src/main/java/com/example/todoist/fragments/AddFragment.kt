@@ -19,15 +19,15 @@ class AddFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         val view = inflater.inflate(R.layout.fragment_add, container, false)
-        val SelectedCateg = arguments?.getString("SelectedCateg").toString()
+        val SelectedCateg = arguments?.getString("SelectedCateg")
         mTaskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
         val categories = mTaskViewModel.getCategories
 
         val spinner = view.findViewById<Spinner>(R.id.spinner)
         val spinnerAdater = ArrayAdapter(this.requireContext(),R.layout.support_simple_spinner_dropdown_item, categories)
         spinner.adapter = spinnerAdater
-        Toast.makeText(requireContext(), mTaskViewModel.selectedCateg.value.toString(), Toast.LENGTH_SHORT).show()
-        //spinner.setSelection(spinnerAdater.getPosition(SelectedCateg))
+        //Toast.makeText(requireContext(),SelectedCateg, Toast.LENGTH_SHORT).show()
+        spinner.setSelection(spinnerAdater.getPosition(SelectedCateg))
         view.findViewById<Button>(R.id.addBtn).setOnClickListener{
             insertDataToDatabase(view,spinner.selectedItem.toString())
         }
