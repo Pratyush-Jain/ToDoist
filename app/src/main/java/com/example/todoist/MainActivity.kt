@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Gravity
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoist.POJO.CategTaskCount
 import com.example.todoist.adapter.Category
+import com.example.todoist.adapter.Task
 import com.example.todoist.adapter.categoriesRvAdapter
 import com.example.todoist.adapter.taskRvAdapter
 import com.example.todoist.data.viewmodel.TaskViewModel
@@ -27,7 +29,7 @@ import com.google.android.material.navigation.NavigationView
 class MainActivity : AppCompatActivity() {
     lateinit var toggle : ActionBarDrawerToggle
     lateinit var mTaskViewModel: TaskViewModel
-    var Selectcateg = "Personal"
+    private var Selectcateg = "Personal"
 
 
 
@@ -37,13 +39,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         mTaskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
-        mTaskViewModel.addCategory(Category(Selectcateg))
-        mTaskViewModel.setCateg("Personal")
-        var categ = emptyList<CategTaskCount>()
-        mTaskViewModel.getAllCategory.observe(this,Observer {
-            categ = it
-
+        //mTaskViewModel.addCategory(Category(Selectcateg))
+        //mTaskViewModel.setCateg("Personal")
+        //var categ = emptyList<CategTaskCount>()
+//        var allCateories = mTaskViewModel.getCategories
+//        if(allCateories.isEmpty()){
+//            mTaskViewModel.addCategory(Category(Selectcateg))
+//        }
+        mTaskViewModel.getAllCategory.observe(this,{
+            if(it.isEmpty()){
+                mTaskViewModel.addCategory(Category(Selectcateg))
+                mTaskViewModel.selectedCateg.value = Selectcateg
+            }
+            else{
+                mTaskViewModel.selectedCateg.value = it[0].category
+            }
         })
+
 
 
             //val user = getIntent().getStringExtra("Uname")
@@ -81,6 +93,7 @@ class MainActivity : AppCompatActivity() {
 
         val taskRv = findViewById<RecyclerView>(R.id.tasks_rv)
         val rvadapter = taskRvAdapter()
+        rvadapter.setdata(mTaskViewModel.readAllTasksNonLive(mTaskViewModel.selectedCateg.value.toString()))
         taskRv.apply{
             layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
             adapter = rvadapter
@@ -89,8 +102,6 @@ class MainActivity : AppCompatActivity() {
 
 
         // Swipe to delete
-
-
         val itemTouchHelper = object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT){
             override fun onMove(
                 recyclerView: RecyclerView,
@@ -114,20 +125,18 @@ class MainActivity : AppCompatActivity() {
 
 
         mTaskViewModel.readAllTask.observe(this, Observer {
-            rvadapter.setdata(it)
+            rvadapter.setdata(it.filter { it.category == mTaskViewModel.selectedCateg.value.toString() } as MutableList<Task>)
         })
+
+        // Update recyclerview on category change
         mTaskViewModel.selectedCateg.observe(this, Observer {
             rvadapter.setdata(mTaskViewModel.readAllTasksNonLive(it))
             Selectcateg = it
-            //mTaskViewModel.readAllTask.value?.let { it1 -> rvadapter.setdata(it1) }
         })
 
-//        mTaskViewModel.readAllCategoryTaskCount.observe(this, Observer {
-//            categAdapter.setCateg(it)
-//        })
+        // feed value to category adapter
         mTaskViewModel.getAllCategory.observe(this, Observer {
             categAdapter.setCateg(it)
-
         })
 
 
@@ -135,7 +144,11 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener{
             val bundle = Bundle()
             bundle.putString("SelectedCateg", Selectcateg)
-            val f:Fragment = AddFragment()
+            val f:Fragment = AddFragment(itemClickCallback = fun(categ: String) {
+
+                
+                Toast.makeText(this, mTaskViewModel.selectedCateg.value, Toast.LENGTH_SHORT).show()
+            })
             f.arguments = bundle
             supportFragmentManager.beginTransaction()
                 .add(R.id.fr,f)
@@ -144,6 +157,8 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+
 
     private fun showMenuFragment(f:Fragment) {
         supportFragmentManager.beginTransaction()
@@ -159,10 +174,4 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-
-
-
-
-
 }

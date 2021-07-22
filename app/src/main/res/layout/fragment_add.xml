@@ -7,7 +7,7 @@
     tools:context=".fragments.AddFragment"
     android:background="@color/white"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="false">
 
     <TextView
         android:id="@+id/textView12"

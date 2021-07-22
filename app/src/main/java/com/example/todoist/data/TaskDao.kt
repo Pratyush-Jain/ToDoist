@@ -1,6 +1,7 @@
 package com.example.todoist.data
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.example.todoist.POJO.CategTaskCount
 import com.example.todoist.adapter.Category
@@ -10,6 +11,13 @@ import com.example.todoist.adapter.Task
 interface taskDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addTask(task:Task)
+
+    @Query("SELECT * from (SELECT * FROM task_table ORDER BY CASE priority " +
+            "WHEN 'High' THEN 1 " +
+            "WHEN 'Medium' THEN 2 " +
+            "WHEN 'Low' THEN 3 " +
+            "END ) ORDER BY isCompleted")
+    fun readAllTask():LiveData<MutableList<Task>>
 
 //    @Query("SELECT * from (SELECT * FROM task_table ORDER BY CASE priority " +
 //            "WHEN 'High' THEN 1 " +
@@ -51,5 +59,11 @@ interface taskDao {
 
     @Delete
     suspend fun deleteTask(task: Task)
+
+    @Query("DELETE from task_table WHERE category=:category")
+    suspend fun DeleteTaskWithCategory(category:String)
+
+    @Query("DELETE from Category WHERE category=:category")
+    suspend fun DeleteCategory(category:String)
 
 }

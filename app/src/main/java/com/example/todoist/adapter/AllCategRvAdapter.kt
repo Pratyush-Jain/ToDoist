@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todoist.POJO.CategTaskCount
 import com.example.todoist.R
 
-class AllCategRvAdapter: RecyclerView.Adapter<AllCategRvAdapter.ViewHolder>()  {
+class AllCategRvAdapter(private val DeletebtnClickCallback: ((String) -> Unit)?): RecyclerView.Adapter<AllCategRvAdapter.ViewHolder>()  {
     var data = emptyList<CategTaskCount>()
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -24,7 +24,11 @@ class AllCategRvAdapter: RecyclerView.Adapter<AllCategRvAdapter.ViewHolder>()  {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.categ.text = data[position].category.toString()
+        holder.categ.text = data[position].category
+        holder.dltCateg.setOnClickListener {
+            DeletebtnClickCallback?.invoke(holder.categ.text.toString())
+
+        }
     }
 
     override fun getItemCount(): Int = data.size

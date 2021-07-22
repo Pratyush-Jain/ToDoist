@@ -39,7 +39,7 @@ class UpdateFragment : Fragment() {
 
         val priorityRG = view.findViewById<RadioGroup>(R.id.UpdateradioGroup)
         var rbID = priorityRG.checkedRadioButtonId
-        var UpdatedPriority = view.findViewById<RadioButton>(rbID).text.toString()
+        var UpdatedPriority = view.findViewById<RadioButton>(rbID)
 
 
         val categories = mTaskViewModel.getCategories
@@ -54,8 +54,12 @@ class UpdateFragment : Fragment() {
                 Toast.makeText(requireContext(), "Add title", Toast.LENGTH_SHORT).show()
             }
             else{
+                rbID = priorityRG.checkedRadioButtonId
+                UpdatedPriority = view.findViewById(rbID)
+
                 val updatedTask = Task(id,updateTitle.text.toString(),
-                    spinner.selectedItem.toString(),false,Priority.valueOf(UpdatedPriority))
+                    spinner.selectedItem.toString(),false,Priority.valueOf(UpdatedPriority.text.toString()))
+                Toast.makeText(requireContext(), Priority.valueOf(UpdatedPriority.text.toString()).toString(), Toast.LENGTH_SHORT).show()
                 mTaskViewModel.updateTask(updatedTask)
                 activity?.onBackPressed()
             }

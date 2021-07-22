@@ -24,13 +24,16 @@ class CategoryMenu :Fragment(R.layout.fragment_category_menu) {
         val view = inflater.inflate(R.layout.fragment_category_menu, container, false)
 
         var AllcategRV = view.findViewById<RecyclerView>(R.id.AllCategRV)
-        var AllcategAdapter = AllCategRvAdapter()
+        var AllcategAdapter = AllCategRvAdapter(DeletebtnClickCallback = fun(categ: String) {
+            mTaskViewModel.DeleteTaskWithCategory(categ)
+        })
+
         AllcategRV.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = AllcategAdapter
             hasFixedSize()
         }
-        mTaskViewModel.getAllCategory.observe(this, Observer {
+        mTaskViewModel.getAllCategory.observe(viewLifecycleOwner, Observer {
             AllcategAdapter.setdata(it)
         })
         return view

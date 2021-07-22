@@ -13,7 +13,7 @@ import com.example.todoist.data.taskRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
- class TaskViewModel(applcation: Application):AndroidViewModel(applcation) {
+ class TaskViewModel(application: Application):AndroidViewModel(application) {
     var readAllTask:LiveData<MutableList<Task>>
     val getCategories:Array<String>
     val getAllCategory: LiveData<List<CategTaskCount>>
@@ -21,27 +21,28 @@ import kotlinx.coroutines.launch
     private val repository: taskRepository
 
     init {
-        val taskDao = taskDatabase.getDatabase(applcation).taskDao()
+        val taskDao = taskDatabase.getDatabase(application).taskDao()
         repository = taskRepository(taskDao)
-        readAllTask = readAllTasks("")
+        readAllTask = repository.readAllTask()
         getAllCategory = repository.getAllCategory
         getCategories = repository.getCategories
 
     }
 
-    fun setCateg(categ: String) {
-        readAllTask = readAllTasks(categ)
-
-    }
+//    fun setCateg(categ: String) {
+//        readAllTask = readAllTasks(categ)
+//
+//    }
 
     fun addTask(task: Task) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addTask(task)
         }
     }
-    fun readAllTasks(categ:String):LiveData<MutableList<Task>> {
-        return repository.readAllTasks(categ)
-    }
+//    fun readAllTasks(categ:String):LiveData<MutableList<Task>> {
+//        readAllTask.value = repository.readAllTasks(categ).value
+//        return readAllTask
+//    }
 
      fun readAllTasksNonLive(categ:String):MutableList<Task> {
          return repository.readAllTasksNonLive(categ)
@@ -73,5 +74,11 @@ import kotlinx.coroutines.launch
          }
 
      }
+     fun DeleteTaskWithCategory(category:String){
+         viewModelScope.launch(Dispatchers.IO) {
+             repository.DeleteTaskWithCategory(category)
+         }
+     }
+
 
  }

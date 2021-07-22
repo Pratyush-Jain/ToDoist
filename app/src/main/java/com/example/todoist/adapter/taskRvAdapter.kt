@@ -98,6 +98,17 @@ class taskRvAdapter: RecyclerView.Adapter<taskRvAdapter.ViewHolder>() {
                     )
                 )
             }
+            else{
+                holder.taskTitle.paintFlags = Paint.ANTI_ALIAS_FLAG
+                holder.taskTitle.setTextColor(
+                    ContextCompat.getColor(
+                        ccontext,
+                        R.color.white
+                    )
+                )
+
+            }
+
 
         }
 

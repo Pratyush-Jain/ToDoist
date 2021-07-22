@@ -1,6 +1,7 @@
 package com.example.todoist.data
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.todoist.POJO.CategTaskCount
 import com.example.todoist.adapter.Category
 import com.example.todoist.adapter.Task
@@ -11,14 +12,16 @@ class taskRepository(private val taskDao: taskDao) {
 
     val getCategories:Array<String> = taskDao.getCategories()
 
+    fun readAllTask():LiveData<MutableList<Task>> = taskDao.readAllTask()
 
-    //val readAllCategoryTaskCount: LiveData<List<CategTaskCount>> = taskDao.getAllCategoryTaskCount()
+
+
     val getAllCategory: LiveData<List<CategTaskCount>> = taskDao.getAllCategory()
-    //val getCategories: List<String> = taskDao.getCategories()
+
     suspend fun UpdateTaskCompletion(id: Long,isComplete:Boolean){
         taskDao.UpdateTaskCompletion(id,isComplete)
     }
-     fun readAllTasks(categ:String):LiveData<MutableList<Task>>{
+     fun readAllTasks(categ:String): LiveData<MutableList<Task>> {
 
         return taskDao.readCategTasks(categ)
     }
@@ -48,6 +51,12 @@ class taskRepository(private val taskDao: taskDao) {
 //    fun getCategories():Array<String>{
 //        return taskDao.getCategories()
 //    }
+
+    suspend fun DeleteTaskWithCategory(category:String){
+        taskDao.DeleteTaskWithCategory(category)
+        taskDao.DeleteCategory(category)
+
+    }
 
 
 
