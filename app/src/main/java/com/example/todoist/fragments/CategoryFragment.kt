@@ -33,12 +33,16 @@ class CategoryFragment : Fragment() {
         val categName = view.findViewById<EditText>(R.id.CategorynameET).text
         if (TextUtils.isEmpty(categName)){
             Toast.makeText(requireContext(), "Add category title", Toast.LENGTH_SHORT).show()
-        }else {
-            val categ = Category(categName.toString())
-            mTaskViewModel.addCategory(categ)
-            categName.clear()
-            activity?.onBackPressed()
-        }
+        }else if(categName.length>20){
+                Toast.makeText(requireContext(), "Max 20 Characters only", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                val categ = Category(categName.toString())
+                mTaskViewModel.addCategory(categ)
+                categName.clear()
+                activity?.onBackPressed()
+            }
+
     }
 
 
