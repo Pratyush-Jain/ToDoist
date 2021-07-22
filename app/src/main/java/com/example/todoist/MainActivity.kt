@@ -144,11 +144,7 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener{
             val bundle = Bundle()
             bundle.putString("SelectedCateg", Selectcateg)
-            val f:Fragment = AddFragment(itemClickCallback = fun(categ: String) {
-
-                
-                Toast.makeText(this, mTaskViewModel.selectedCateg.value, Toast.LENGTH_SHORT).show()
-            })
+            val f:Fragment = AddFragment()
             f.arguments = bundle
             supportFragmentManager.beginTransaction()
                 .add(R.id.fr,f)

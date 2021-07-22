@@ -17,7 +17,7 @@ import com.example.todoist.adapter.Task
 import com.example.todoist.data.viewmodel.TaskViewModel
 
 
-class AddFragment(private val itemClickCallback: ((String) -> Unit)?) : Fragment() {
+class AddFragment() : Fragment() {
     private lateinit var mTaskViewModel: TaskViewModel
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -53,7 +53,7 @@ class AddFragment(private val itemClickCallback: ((String) -> Unit)?) : Fragment
         if(!TextUtils.isEmpty(task.text)) {
             val taska = Task(0,task.text.toString(), category, false,Priority.valueOf(apriority))
             mTaskViewModel.addTask(taska)
-            itemClickCallback?.invoke(category)
+
             activity?.onBackPressed()
         }else{
             Toast.makeText(view.context, "Add title", Toast.LENGTH_SHORT).show()
