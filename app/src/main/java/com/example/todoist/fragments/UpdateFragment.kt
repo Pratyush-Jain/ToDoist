@@ -59,7 +59,7 @@ class UpdateFragment : Fragment() {
 
                 val updatedTask = Task(id,updateTitle.text.toString(),
                     spinner.selectedItem.toString(),false,Priority.valueOf(UpdatedPriority.text.toString()))
-                Toast.makeText(requireContext(), Priority.valueOf(UpdatedPriority.text.toString()).toString(), Toast.LENGTH_SHORT).show()
+
                 mTaskViewModel.updateTask(updatedTask)
                 activity?.onBackPressed()
             }
