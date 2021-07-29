@@ -115,9 +115,9 @@ class taskRvAdapter: RecyclerView.Adapter<taskRvAdapter.ViewHolder>() {
 
     // Edit task click listener
         holder.ccv.setOnClickListener {
-            val updateBTF = UpdateFragment()
+            val updateBSF = UpdateFragment()
             //val f:Fragment= UpdateFragment()
-            sendTaskDataToIntent(holder,position,updateBTF)
+            sendTaskDataToIntent(holder,position,updateBSF)
             val activity  = it.context as? AppCompatActivity
 //            activity?.supportFragmentManager?.beginTransaction()
 //                ?.addToBackStack(UpdateFragment::class.toString())
@@ -125,9 +125,9 @@ class taskRvAdapter: RecyclerView.Adapter<taskRvAdapter.ViewHolder>() {
 //                ?.replace(R.id.fr, f)
 //                ?.commit()
             if (activity != null) {
-                updateBTF.show(activity.supportFragmentManager, "updateBSF")
+                updateBSF.show(activity.supportFragmentManager, "updateBSF")
             }
-            updateBTF.setStyle(DialogFragment.STYLE_NORMAL,R.style.DialogStyle)
+            updateBSF.setStyle(DialogFragment.STYLE_NORMAL,R.style.DialogStyle)
 
         }
     }
