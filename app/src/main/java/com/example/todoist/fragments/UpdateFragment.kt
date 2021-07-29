@@ -12,8 +12,9 @@ import com.example.todoist.R
 import com.example.todoist.adapter.Priority
 import com.example.todoist.adapter.Task
 import com.example.todoist.data.viewmodel.TaskViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class UpdateFragment : Fragment() {
+class UpdateFragment : BottomSheetDialogFragment() {
     lateinit var title:String
     lateinit var priority:String
     lateinit var category:String
