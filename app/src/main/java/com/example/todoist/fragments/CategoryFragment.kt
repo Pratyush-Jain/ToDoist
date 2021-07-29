@@ -13,9 +13,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.todoist.R
 import com.example.todoist.adapter.Category
 import com.example.todoist.data.viewmodel.TaskViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
-class CategoryFragment : Fragment() {
+class CategoryFragment : BottomSheetDialogFragment() {
 
     private lateinit var mTaskViewModel: TaskViewModel
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

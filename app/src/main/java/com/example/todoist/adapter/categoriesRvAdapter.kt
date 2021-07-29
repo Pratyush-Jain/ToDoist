@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todoist.fragments.CategoryFragment
 import com.example.todoist.R
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import com.example.todoist.POJO.CategTaskCount
 
 
@@ -78,12 +79,16 @@ class categoriesRvAdapter(var activity: Activity,private val itemClickCallback: 
                 holder.add_categ_view.setOnClickListener{
                     vview.findViewById<CardView>(R.id.add_category_cv).setOnClickListener {
 
-                        val f:Fragment = CategoryFragment()
-                        var act:AppCompatActivity = it.context as AppCompatActivity
-                        act.supportFragmentManager.beginTransaction()
-                            .add(R.id.fr,f)
-                            .addToBackStack("fragment")
-                            .commit()
+                        val categoryBSF = CategoryFragment()
+                        val act = it.context as? AppCompatActivity
+                        if (act != null) {
+                            categoryBSF.show(act.supportFragmentManager, "categoryBSF")
+                        }
+                        categoryBSF.setStyle(DialogFragment.STYLE_NORMAL,R.style.DialogStyle)
+//                        act.supportFragmentManager.beginTransaction()
+//                            .add(R.id.fr,f)
+//                            .addToBackStack("fragment")
+//                            .commit()
                     }
 
                 }
