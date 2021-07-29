@@ -15,9 +15,10 @@ import com.example.todoist.R
 import com.example.todoist.adapter.Priority
 import com.example.todoist.adapter.Task
 import com.example.todoist.data.viewmodel.TaskViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
-class AddFragment() : Fragment() {
+class AddFragment() : BottomSheetDialogFragment() {
     private lateinit var mTaskViewModel: TaskViewModel
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -54,7 +55,7 @@ class AddFragment() : Fragment() {
             val taska = Task(0,task.text.toString(), category, false,Priority.valueOf(apriority))
             mTaskViewModel.addTask(taska)
 
-            activity?.onBackPressed()
+//            activity?.onBackPressed()
         }else{
             Toast.makeText(view.context, "Add title", Toast.LENGTH_SHORT).show()
         }

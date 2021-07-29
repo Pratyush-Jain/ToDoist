@@ -7,7 +7,9 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -22,6 +24,8 @@ import com.example.todoist.adapter.taskRvAdapter
 import com.example.todoist.data.viewmodel.TaskViewModel
 import com.example.todoist.fragments.AddFragment
 import com.example.todoist.fragments.CategoryMenu
+import com.example.todoist.fragments.UpdateFragment
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 
@@ -30,6 +34,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var toggle : ActionBarDrawerToggle
     lateinit var mTaskViewModel: TaskViewModel
     private var Selectcateg = "Personal"
+    val addBTF = AddFragment()
+
 
 
 
@@ -46,6 +52,9 @@ class MainActivity : AppCompatActivity() {
 //        if(allCateories.isEmpty()){
 //            mTaskViewModel.addCategory(Category(Selectcateg))
 //        }
+
+
+
         mTaskViewModel.getAllCategory.observe(this,{
             if(it.isEmpty()){
                 mTaskViewModel.addCategory(Category(Selectcateg))
@@ -144,12 +153,16 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener{
             val bundle = Bundle()
             bundle.putString("SelectedCateg", Selectcateg)
-            val f:Fragment = AddFragment()
-            f.arguments = bundle
-            supportFragmentManager.beginTransaction()
-                .add(R.id.fr,f)
-                .addToBackStack("fragment")
-                .commit()
+            //val f:Fragment = AddFragment()
+            addBTF.arguments = bundle
+//            supportFragmentManager.beginTransaction()
+//                .add(R.id.fr,addBTF)
+//                .addToBackStack("fragment")
+//                .commit()
+            addBTF.show(supportFragmentManager, "bsf")
+            addBTF.setStyle(DialogFragment.STYLE_NORMAL,R.style.DialogStyle)
+
+
         }
 
     }

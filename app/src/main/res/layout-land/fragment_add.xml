@@ -2,12 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomsheet"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.AddFragment"
+    android:layout_height="wrap_content"
     android:background="@color/white"
     android:clickable="true"
-    android:focusable="false">
+    android:focusable="false"
+    app:behavior_hideable="true"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    tools:context=".fragments.AddFragment">
 
     <TextView
         android:id="@+id/textView12"
@@ -23,8 +26,8 @@
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checkedButton="@id/rb_MEDIUM"
         android:layout_marginStart="8dp"
+        android:checkedButton="@id/rb_MEDIUM"
         android:orientation="horizontal"
         app:layout_constraintStart_toEndOf="@+id/textView12"
         app:layout_constraintTop_toBottomOf="@+id/task">
@@ -40,8 +43,8 @@
             android:id="@+id/rb_MEDIUM"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Medium"
             android:checked="true"
+            android:text="Medium"
             android:textSize="12sp" />
 
         <RadioButton
@@ -81,18 +84,9 @@
         android:id="@+id/spinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintStart_toEndOf="@+id/textView9"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:text="Category"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 </androidx.constraintlayout.widget.ConstraintLayout>

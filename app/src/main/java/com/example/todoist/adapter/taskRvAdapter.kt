@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources.getColorStateList
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
@@ -114,15 +115,19 @@ class taskRvAdapter: RecyclerView.Adapter<taskRvAdapter.ViewHolder>() {
 
     // Edit task click listener
         holder.ccv.setOnClickListener {
-
-            val f:Fragment= UpdateFragment()
-            sendTaskDataToIntent(holder,position,f)
+            val updateBSF = UpdateFragment()
+            //val f:Fragment= UpdateFragment()
+            sendTaskDataToIntent(holder,position,updateBSF)
             val activity  = it.context as? AppCompatActivity
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.addToBackStack(UpdateFragment::class.toString())
-                ?.setReorderingAllowed(true)
-                ?.replace(R.id.fr, f)
-                ?.commit()
+//            activity?.supportFragmentManager?.beginTransaction()
+//                ?.addToBackStack(UpdateFragment::class.toString())
+//                ?.setReorderingAllowed(true)
+//                ?.replace(R.id.fr, f)
+//                ?.commit()
+            if (activity != null) {
+                updateBSF.show(activity.supportFragmentManager, "updateBSF")
+            }
+            updateBSF.setStyle(DialogFragment.STYLE_NORMAL,R.style.DialogStyle)
 
         }
     }
