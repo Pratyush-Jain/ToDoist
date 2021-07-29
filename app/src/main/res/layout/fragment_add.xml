@@ -3,16 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.AddFragment"
+    android:layout_height="wrap_content"
     android:background="@color/white"
     android:clickable="true"
-    android:focusable="false">
+    android:id="@+id/bottomsheet"
+    android:focusable="false"
+    tools:context=".fragments.AddFragment"
+    app:behavior_hideable="true"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="Priority"
         app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,8 +26,8 @@
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checkedButton="@id/rb_MEDIUM"
         android:layout_marginStart="8dp"
+        android:checkedButton="@id/rb_MEDIUM"
         android:orientation="horizontal"
         app:layout_constraintStart_toEndOf="@+id/textView12"
         app:layout_constraintTop_toBottomOf="@+id/task">
@@ -39,8 +43,8 @@
             android:id="@+id/rb_MEDIUM"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Medium"
             android:checked="true"
+            android:text="Medium"
             android:textSize="12sp" />
 
         <RadioButton
@@ -57,7 +61,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
         android:layout_marginTop="108dp"
+        android:layout_marginBottom="32dp"
         android:text="Add"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
@@ -65,7 +71,8 @@
         android:id="@+id/task"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="148dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Task"
         android:inputType="textCapWords"
@@ -78,17 +85,9 @@
         android:id="@+id/spinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toEndOf="@+id/textView9"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Category"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 </androidx.constraintlayout.widget.ConstraintLayout>
