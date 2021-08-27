@@ -1,5 +1,5 @@
 
-<h1 align=center> ToDoist</h1>
+<h1 align=center> ToDoit</h1>
 
 ![](https://github.com/Pratyush-Jain/ToDoist/blob/master/readme/mockup_1.png)
 Use Toidoit to:
