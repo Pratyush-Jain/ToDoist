@@ -1,7 +1,7 @@
 
 <h1 align=center> ToDoit</h1>
 
-<h6>Todo app to create, manage all your tasks at one place </h6>
+Todo app to create, manage all your tasks at one place 
  
 ![](https://github.com/Pratyush-Jain/ToDoist/blob/master/readme/mockup_1.png)
 Use Toidoit to:
