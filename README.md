@@ -1,6 +1,6 @@
 
 <h1 align=center> ToDoit</h1>
-
+Todo app to create,manage all your task at one place
 ![](https://github.com/Pratyush-Jain/ToDoist/blob/master/readme/mockup_1.png)
 Use Toidoit to:
 <ul>
